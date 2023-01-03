@@ -1,15 +1,14 @@
 
-const popupLinks = document.querySelectorAll('popup-link');
-const body = document.querySelectorAll('body');
+const popupLinks = document.querySelectorAll('.popup-link');
+const body = document.body;
 const lockPadding = document.querySelectorAll(".lock-padding");
-// 
 let unlock = true;
 const timeout = 800;
-// 
-if (popuplinks.length > 0) {
-	for (let index = 0; index < popuplinks.length; index++) {
+//
+if (popupLinks.length > 0) {
+	for (let index = 0; index < popupLinks.length; index++) {
 		const popupLink = popupLinks[index];
-	
+
 		popupLink.addEventListener	("click",function(e){
 			const popupName = popupLink.getAttribute('href').replace('#','');
 
@@ -18,58 +17,58 @@ if (popuplinks.length > 0) {
 			popupOpen(currentPopup);
 			e.preventDefault();
 		})
-	
-	}	
+
+	}
 }
-// 
+//
 
 const popupCloseIcon = document.querySelectorAll('.close-popup');
 if (popupCloseIcon.length > 0) {
 	for (let index  = 0; index <popupCloseIcon.length ; index ++) {
-		const el = popupCloseIcon = [index];
+		const el = popupCloseIcon[index];
 		el.addEventListener('click',function(e){
-			popupClose(el.closet('popup'));
+			popupClose(el.closest('.popup'));
 			e.preventDefault()	;
 
 		});
-	
+
 	}
-	
+
 }
 
-// 
+//
 
 function popupOpen(currentPopup) {
 	if (currentPopup && unlock) {
-		const popupActive = document.querySelector('popup__open');
+		const popupActive = document.querySelector('.popup__open');
 		if (popupActive) {
 			popupClose(popupActive,false);
-			
+
 		} else {
-			bodtlock();
+			bodyLock();
 		}
-		currentPopup.classlist.add('open');
+		currentPopup.classList.add('open');
 		currentPopup.addEventListener('click',function(e){
 			if (!e.target.closest('.popup__content')) {
 				popupClose(e.target.closest('.popup'));
 				}
 		});
-	} 
+	}
 }
-// 
+//
 function popupClose(popupActive,dounlock = true) {
 	if (unlock) {
-		popupActive.classlist.remove('open');
+		popupActive.classList.remove('open');
 		if (dounlock) {
 			bodyunlock();
-			
+
 		}
-		
+
 	}
-	
+
 }
 
-// 
+//
 
 function bodyLock() {
 	const lockPaddingValue = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px'
@@ -79,9 +78,9 @@ function bodyLock() {
 			el.style.paddingRight = lockPaddingValue;
 		}
 	}
-	
+
 	body.style.paddingRight = lockPaddingValue;
-	body.classlist.add('lock');
+	body.classList.add('lock');
 
 	unlock = false;
 	setTimeout(function () {
@@ -89,14 +88,14 @@ function bodyLock() {
 		},timeout);
 }
 
-function bodyLock() {
+function bodyunlock() {
 	setTimeout(function(){
 		for (let index = 0; index < lockPadding.length; index++) {
 			const el = lockPadding[index];
 			el.style.paddingRight = '0px'
 		}
 			body.style.paddingRight = '0px';
-			body.classlist.remove('lock');
+			body.classList.remove('lock');
 			},timeout),
 			unlock = false;
 			setTimeout(function() {
